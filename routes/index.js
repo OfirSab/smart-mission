@@ -47,7 +47,7 @@ router.post('/Add', async (req, res, next) =>{
   });
   try {
     const savedPost = await post.save()
-    res.send(savedPost)
+    res.json(savedPost)
     } catch (err) {
         res.json(null)
     }

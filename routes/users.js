@@ -23,5 +23,13 @@ router.get('/all', async (req, res, next) => {
       res.json({message: err})
   }
 });
-
+// Get users with no authentication
+router.delete('/delete/:username', (req, res) => {
+  const { username } = req.params;
+  Post.findOneAndDelete({_id: username}, async (err, result) => {
+  if (err) return res.send(null)
+  const posts = await Post.find();
+  res.send(posts)
+  });
+});
 module.exports = router;

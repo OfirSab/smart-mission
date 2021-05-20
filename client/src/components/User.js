@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 
-const User = ({user}) =>{
+const User = ({user,listChanged}) =>{
     const [edit,setEdit] = useState(false)
     const [displayName,setDisplayName] = useState(user.First_Name)
     const [displayLast,setDisplayLast] = useState(user.Last_Name)
@@ -30,10 +30,24 @@ const User = ({user}) =>{
         }
         setEdit(false)
     }
+
+    const delUser = ()=>{
+        fetch(`/users/delete/${user._id}`,
+        {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((response) => response.json())
+        .then((users) => {if(users){listChanged(users)}})
+        
+    }
     return (
         <div className="single-user">
             <li>{displayName} {displayLast}
             <button className="btn btn-light" onClick={()=>{setEdit(!edit)}}>Edit</button>
+            <button className="btn btn-danger" onClick={()=>{delUser()}}>Delete</button>
             {edit && 
             <div className="edit">
                 <input placeholder={name} onChange={(e)=>{setName(e.target.value)}}></input>
