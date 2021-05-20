@@ -19,7 +19,7 @@ const Users = () =>{
           .then((response) => response.json())
           .then((users) => {setUsers(users)})
           .then((a) => {setUsersNoAuth(null)})
-          .catch((a) => {if(users.length == 0){
+          .catch((a) => {if(users.length === 0){
             fetch(`/users/all`)
             .then((response) => response.json())
             .then((users) => setUsersNoAuth(users));
@@ -60,25 +60,25 @@ const Users = () =>{
             {users && users.map((user,index)=>(<User user={user} key={index}/>))}
             </ul>
             </div>
-            {users.length != 0 ? 
+            {users.length !== 0 ? 
             <div className="new-user">
-                <button className="btn btn-dark btn-block" onClick={()=>(setAdd(!add))}><i class="fas fa-user-plus"></i> Add new user</button>
+                <button className="btn btn-dark btn-block" onClick={()=>(setAdd(!add))}><i className="fas fa-user-plus"></i> Add new user</button>
                {add && <div >
-                <div class="form-floating mb-3">
+                <div className="form-floating mb-3">
                 <input type="text" className="form-control" id="floatingInput" onChange={(e)=>{setName(e.target.value)}} placeholder="name"/>
-                <label for="floatingInput">First name</label>
+                <label>First name</label>
                 </div>
-                <div class="form-floating mb-3">
+                <div className="form-floating mb-3">
                 <input type="text" className="form-control" id="floatingInput" onChange={(e)=>{setLastName(e.target.value)}} placeholder="lastname"/>
-                <label for="floatingInput">Last name</label>
+                <label>Last name</label>
                 </div>
-                <div class="form-floating mb-3">
+                <div className="form-floating mb-3">
                 <input type="text" className="form-control" id="floatingInput" onChange={(e)=>{setAge(e.target.value)}} placeholder="age"/>
-                <label for="floatingInput">Age</label>
+                <label>Age</label>
                 </div>
-                <div class="form-floating mb-3">
+                <div className="form-floating mb-3">
                 <input type="text" className="form-control" id="floatingInput" onChange={(e)=>{setBirthday(e.target.value)}} placeholder="birthday"/>
-                <label for="floatingInput">Birthday (YYYY-MM-DD)</label>
+                <label>Birthday (YYYY-MM-DD)</label>
                 </div>
                 <button className="btn btn-dark btn-block" onClick={()=>(addNewUser())}>Submit Adding</button>
                 </div>

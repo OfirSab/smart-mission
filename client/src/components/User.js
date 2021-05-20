@@ -8,7 +8,7 @@ const User = ({user}) =>{
     const [lastName,setlastName] = useState(user.Last_Name)
 
     const setChanges = ()=>{
-        if(name != user.First_Name || lastName != user.Last_Name) {
+        if(name !== user.First_Name || lastName !== user.Last_Name) {
             fetch('/SetChanges',
             {
                 method: 'POST',

@@ -1,15 +1,36 @@
 
 import './App.css';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import React,{useState,useEffect} from 'react'
 import Users from './components/Users'
 import Login from './components/Login'
 import NavBar from './components/NavBar'
 
 function App() {
+  const [logged,setLogged] = useState(false)
+  useEffect( () => {
+    fetch(`/Login`, {
+        headers : { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         }
+      })
+      .then((response) => response.json())
+      .then((ans) => {setLogged(ans);});
+  },[])
+  const isLoggedOut = () =>{
+    fetch('/Logout',
+    {
+        method: "POST",
+        body: false
+    })
+    .then((res)=>{ res.json(); })
+    .then((data)=>{ setLogged(data) })
+  }
   return (
       <Router>
       <div className="App">
-        <NavBar />
+        <NavBar isLogin={logged} loggedOut={()=>(isLoggedOut())}/>
         <div className="container">
           <Switch>
             <Route exact path="/" render={() =>(
